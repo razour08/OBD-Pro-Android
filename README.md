@@ -19,6 +19,14 @@
 * **Jiangnan TT (江南TT)** - Engine: JN368QA (0.8L) - ECU: WHLD LEC3A
 * Vehicles based on the **Suzuki Alto F8B** engine platform utilizing KWP2000 fast-init over K-Line.
 
+### ⚠️ Known Hardware Defect: Broken CAN Bus (ECU Pin 32)
+The **Jiangnan TT** features a known factory wiring defect where the **CAN-L** line (**ECU Pin 32**) was never connected to the **OBD-II Pin 14** port. Because of this:
+1. Standard OBD-II CAN bus diagnostics are **physically impossible** out of the box without manual rewiring.
+2. The loose CAN-H signal produces electrical noise that interferes with standard fallback diagnostics.
+3. This is why our specialized **K-Line / KWP2000 Fast Init** approach is the only way to reliably connect to the LEC3A ECU.
+* For more technical details on this defect and how to fix it physically, check out our in-depth [ECU Research Document](Doc/jiangnan_tt_ecu_research.md).
+* Reference discussion on Autohome: [江南TT/奥拓 诊断与接口问题 - Autohome Forum](https://club.autohome.com.cn/bbs/thread/b5b5218adf071566/114912469-1.html?bbsid=2230#pvareaid=6830285).
+
 ### Tech Stack
 * Android / Kotlin
 * Jetpack Compose (UI)
@@ -42,6 +50,14 @@
 * **江南TT (Jiangnan TT)** - 发动机：JN368QA (0.8L) - ECU：武汉菱电 LEC3A
 * 基于 **铃木奥拓 (Suzuki Alto) F8B** 发动机平台并使用 KWP2000 快速初始化 (K-Line) 的车型。
 
+### ⚠️ 已知硬件缺陷：未连线的 CAN 总线 (ECU Pin 32)
+**江南TT** 存在一个已知的出厂接线缺陷，即 **CAN-L** 线（**ECU 第 32 脚**）从未连接到 **OBD-II 接口的第 14 脚**。因此：
+1. 在不进行手动重新接线的情况下，标准的 OBD-II CAN 总线诊断在物理上是**不可能实现**的。
+2. 悬空的 CAN-H 信号会产生电磁干扰，影响标准的备用 K-Line 诊断。
+3. 这就是为什么我们专门研发的 **K-Line / KWP2000 快速初始化** 方案是目前唯一能稳定连接到 LEC3A ECU 的方法。
+* 有关该缺陷的更多技术细节以及如何进行物理修复，请参阅我们深入的 [ECU 研究文档](Doc/jiangnan_tt_ecu_research.md)。
+* 汽车之家参考论坛讨论：[江南TT/奥拓 诊断与接口问题 - 汽车之家论坛](https://club.autohome.com.cn/bbs/thread/b5b5218adf071566/114912469-1.html?bbsid=2230#pvareaid=6830285)。
+
 ### 技术栈
 * Android / Kotlin
 * Jetpack Compose (UI)
@@ -64,6 +80,14 @@
 ### السيارات المدعومة
 * **جيانغنان تي تي (Jiangnan TT)** - المحرك: JN368QA (0.8L) - وحدة التحكم: WHLD LEC3A.
 * السيارات المبنية على منصة محرك **سوزوكي ألتو Suzuki Alto F8B** والتي تستخدم بروتوكول KWP2000 عبر K-Line.
+
+### ⚠️ عيب مصنعي معروف: خط CAN Bus معطل (ECU Pin 32)
+تحتوي سيارات **Jiangnan TT** على عيب مصنعي معروف في التوصيلات الكهربائية، حيث لم يتم توصيل خط **CAN-L** (من **المنفذ 32 لوحدة التحكم ECU**) بـ **المنفذ 14 في مقبس OBD-II**. وبسبب هذا العيب:
+1. فحص السيارات عبر بروتوكول CAN القياسي **مستحيل فيزيائياً** دون تعديل الأسلاك يدوياً وإضافة سلك التوصيل الناقص.
+2. يتسبب سلك CAN-H المعلق في حدوث تشويش وضوضاء كهربائية تؤثر سلباً على فحص خط K-Line الاحتياطي.
+3. هذا هو السبب في أن تطبيقنا الذي يعتمد على **K-Line / KWP2000 Fast Init** هو الطريقة الوحيدة والمضمونة للاتصال بوحدة التحكم LEC3A واستخراج البيانات الحية.
+* لمزيد من التفاصيل التقنية حول هذا العيب وكيفية إصلاحه يدوياً بإضافة السلك الناقص، راجع [وثيقة البحث الخاصة بالـ ECU](Doc/jiangnan_tt_ecu_research.md).
+* رابط النقاش والمراجعة على منتدى Autohome الصيني الشهير: [رابط مناقشة واجهة فحص جيانغنان TT](https://club.autohome.com.cn/bbs/thread/b5b5218adf071566/114912469-1.html?bbsid=2230#pvareaid=6830285).
 
 ### التقنيات المستخدمة
 * أندرويد / Kotlin
