@@ -1,0 +1,58 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Android Studio CMake
+CMakeLists.txt.user
+
+# Android Studio Profiler
+*.hprof
+
+# Kotlin
+.idea/kotlin-compiler.xml
+.idea/codeStyles/
+
+# macOS
+.DS_Store
+
+# Gradle
+.gradle/
+build/
+*/build/
+*/*/build/
+*/*/*/build/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# local properties
+local.properties
+
+# temp files
+*.tmp
+*.bak
+*~
+
+# Excluded folders
+/Doc/
+/.agent/
+/.vscode/
+/.kotlin/

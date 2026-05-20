@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- OBD Pro Launcher Icon — Foreground layer (gear/diagnostic symbol) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- OBD connector circle -->
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M54,54m-22,0a22,22 0,1 1,44 0a22,22 0,1 1,-44 0" />
+
+    <!-- Inner circle -->
+    <path
+        android:fillColor="#0D1117"
+        android:pathData="M54,54m-16,0a16,16 0,1 1,32 0a16,16 0,1 1,-32 0" />
+
+    <!-- OBD pins (simplified) -->
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M46,48 L46,44 L48,44 L48,48Z" />
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M52,48 L52,44 L56,44 L56,48Z" />
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M60,48 L60,44 L62,44 L62,48Z" />
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M49,60 L49,64 L51,64 L51,60Z" />
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M54,60 L54,64 L56,64 L56,60Z" />
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M59,60 L59,64 L61,64 L61,60Z" />
+
+    <!-- Center dot -->
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M54,54m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0" />
+</vector>
