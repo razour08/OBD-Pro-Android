@@ -91,7 +91,7 @@ object EcuSimulator {
             rawData[i] = Random.nextInt(0, 0x80)
         }
 
-        // Place sensors at correct byte offsets (corrected per video forensics)
+        rawData[3] = ((112f - coolant) / 0.438f).toInt().coerceIn(0, 255)  // Coolant: NTC scaling (was Byte 35)
         rawData[8] = (battery / 0.1f).toInt().coerceIn(0, 255)
         rawData[9] = (mapPressure * 2.0f).toInt().coerceIn(0, 255)
         rawData[10] = (iat + 40).coerceIn(0, 255)
@@ -104,7 +104,7 @@ object EcuSimulator {
         rawData[23] = (rpm shr 8) and 0xFF                                // was 24
         rawData[24] = rpm and 0xFF                                         // was 25
         rawData[32] = (ignAdvance + 64).toInt().coerceIn(0, 255)                // was 33; formula: val+64
-        rawData[35] = (coolant + 40).coerceIn(0, 255)                     // was 36
+        rawData[35] = 0x93                                                 // Static 0x93 value observed in real ECU (was coolant)
         rawData[38] = fuelEnrich.coerceIn(0, 255)                         // was 39
         rawData[53] = runtime                                              // was 54
 

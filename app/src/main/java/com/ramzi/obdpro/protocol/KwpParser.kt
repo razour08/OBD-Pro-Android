@@ -95,21 +95,12 @@ object KwpParser {
         //         Speed byte 17: always 0x00, ECU does not report it
 
         // ── Coolant Diagnostic Logging ──────────────────────────────
-        // Log bytes 33-37 to resolve the byte offset discrepancy
-        // seen between Byte Explorer (shows 0x93 at [36]) and
-        // Console hex (shows 0x93 at [35]) from different sessions.
-        if (dataBytes.size > 37) {
-            val b33 = safeGetByte(dataBytes, 33)
-            val b34 = safeGetByte(dataBytes, 34)
-            val b35 = safeGetByte(dataBytes, 35)
-            val b36 = safeGetByte(dataBytes, 36)
-            val b37 = safeGetByte(dataBytes, 37)
-            Log.i(TAG, "🌡 COOLANT DIAG: " +
-                "b[33]=0x${"%02X".format(b33)}($b33) " +
-                "b[34]=0x${"%02X".format(b34)}($b34) " +
-                "b[35]=0x${"%02X".format(b35)}($b35)→${b35-40}°C " +
-                "b[36]=0x${"%02X".format(b36)}($b36)→${b36-40}°C " +
-                "b[37]=0x${"%02X".format(b37)}($b37) " +
+        // Log Byte 3 (ECT) to track the NTC resistance scaling.
+        if (dataBytes.size > 3) {
+            val b3 = safeGetByte(dataBytes, 3)
+            val calculatedTemp = (112f - (0.438f * b3)).toInt()
+            Log.i(TAG, "🌡 COOLANT DIAG (ECT): " +
+                "b[3]=0x${"%02X".format(b3)}($b3)→${calculatedTemp}°C " +
                 "| Total bytes: ${dataBytes.size}")
         }
 
@@ -123,7 +114,10 @@ object KwpParser {
             speed           = null,
             tps             = safeGetByte(dataBytes, 20) * 100.0f / 255.0f,  // was 21
             rpm             = (safeGetByte(dataBytes, 23) * 256) + safeGetByte(dataBytes, 24),  // was 24,25
-            coolantTemp     = safeGetByte(dataBytes, 35) - 40,  // was 36
+            // Coolant: Byte 3 confirmed via physical testing on Jiangnan TT (NTC thermistor).
+            // Formula calibrated from raw data: 198 (cold) -> 25°C, 61 (operating) -> 85°C.
+            // Linear equation: Temp = 112 - (0.438 * raw)
+            coolantTemp     = (112f - (0.438f * safeGetByte(dataBytes, 3))).toInt(),
 
             // ── Suspected / Unmapped Sensors ─────────────────────────
             electricalLoad  = safeGetByte(dataBytes, 12) * 100.0f / 255.0f,

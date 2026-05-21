@@ -20,8 +20,9 @@ package com.ramzi.obdpro.model
  * │ TPS               │ 20     │ d[20] * 100.0 / 255.0        │ %    │ Confirmed │
  * │ TPS Secondary     │ 21     │ d[21]                        │ raw  │ Suspected │
  * │ RPM               │ 23,24  │ (d[23] * 256) + d[24]        │ rpm  │ Confirmed │
- * │ Ignition Advance  │ 32     │ (d[32] - 128) * 0.5          │ °    │ Unmapped  │
- * │ Coolant           │ 35     │ d[35] - 40                   │ °C   │ Confirmed │
+ * │ Ignition Advance  │ 32     │ d[32] - 64                   │ °    │ Suspected │
+ * │ Coolant           │ 3      │ 112 - (d[3] * 0.438)         │ °C   │ Confirmed │
+ * │ Static 0x93       │ 35     │ Static 0x93 (Constant 107°C) │ —    │ Static    │
  * │ Fuel Enrichment   │ 38     │ d[38]                        │ flag │ Unmapped  │
  * │ Engine Runtime    │ 53     │ d[53]                        │ sec  │ Isolated  │
  * └──────────────────┴────────┴──────────────────────────────┴──────┴───────────┘

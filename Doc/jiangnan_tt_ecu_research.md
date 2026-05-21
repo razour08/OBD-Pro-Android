@@ -73,7 +73,8 @@ The ECU returns a **64-byte proprietary data block**. Confirmed mappings:
 | 17 | **Vehicle Speed** | `d[17]` | km/h | ❌ Driving test: always 0x00 |
 | 9 | **MAP (Manifold Abs Pressure)** | `d[9] / 2.0` | kPa | Engine vacuum vs atmo |
 | 10 | **IAT (Intake Air Temp)** | `d[10] - 40` | °C | Stable ~46°C |
-| 36 | **Coolant Temperature** | `d[36] - 40` | °C | ⚠️ STATIC 0x93 (107°C) — see §8 |
+| 3 | **Coolant Temperature** | `112 - (d[3] * 0.438)` | °C | NTC thermistor sensor, verified via cold-start to warmup test (§8) |
+| 35 | **Static 0x93** | Static `0x93` | — | Constant 107°C, false coolant byte |
 | 21 | **Throttle Position** | `d[21] * 100.0 / 255.0` | % | Gas pedal test: 0x10→0xDA |
 
 ### 🔶 High-Confidence (From Data Analysis)
@@ -195,12 +196,17 @@ Byte 17 was always 0x00 in ALL screenshots, including during active driving.
 The LEC3A ECU does NOT output vehicle speed through KWP2000 Service 21 01.
 The VSS signal goes directly to the instrument cluster, bypassing the ECU.
 
-### Coolant Temperature (Byte 36) SUSPECT MAPPING
-Byte 36 was always 0x93 (=147, formula: 147-40=107C) across ALL test conditions:
-- Before engine start (ignition ON only): 107C
-- After engine start (idle): 107C
-- During driving: 107C
+### Coolant Temperature (Byte 3) VERIFIED MAPPING (NTC THERMISTOR)
+Initially, Byte 35 (or 36) was suspected to be coolant, but physical tests showed a static value of `0x93` (107°C) which triggered false overheating alarms in the app.
 
-A real coolant temp sensor should read ambient (~25-35C) before start, then rise.
-Possible causes: wrong byte mapping, broken CTS, or sensor wire fault.
-Action needed: cold-start test with Explorer to find the real coolant byte.
+Through forensic tracking of a cold start to normal operating temperature (captured in `az_recorder_20260520_160600.mp4` and analyzed on 2026-05-21), we successfully identified **Byte 3** as the true Engine Coolant Temperature (ECT) sensor.
+
+* **NTC Behavior:** The raw value in Byte 3 decreases monotonically as the engine heats up, indicating a standard Negative Temperature Coefficient (NTC) thermistor:
+  - Cold Start: `0xC6` (Decimal: 198) ~ 25°C
+  - At 00:24: `0x63` (Decimal: 99)
+  - At 00:51: `0x5A` (Decimal: 90)
+  - At 01:14: `0x52` (Decimal: 82)
+  - At 02:14: `0x46` (Decimal: 70)
+  - Operating Temp (04:14): `0x3D` (Decimal: 61) ~ 85°C
+
+* **Calibrated Formula:** `Temp (°C) = 112 - (0.438 * raw)`

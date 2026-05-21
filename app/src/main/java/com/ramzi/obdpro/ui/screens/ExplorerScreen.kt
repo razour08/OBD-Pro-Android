@@ -70,6 +70,7 @@ data class ByteInfo(
  *  Bytes 8-14: correct as-is.
  *  Bytes >=20: ALL shifted -1 from original research document. */
 private val BYTE_MAP: Map<Int, ByteInfo> = mapOf(
+    3  to ByteInfo(3,  "Coolant",      ByteStatus.CONFIRMED, "112-0.438×X °C"),
     8  to ByteInfo(8,  "Battery V",    ByteStatus.CONFIRMED, "×0.1 V"),
     9  to ByteInfo(9,  "MAP",          ByteStatus.CONFIRMED, "÷2.0 kPa"),
     10 to ByteInfo(10, "IAT",          ByteStatus.CONFIRMED, "-40 °C"),
@@ -83,7 +84,7 @@ private val BYTE_MAP: Map<Int, ByteInfo> = mapOf(
     23 to ByteInfo(23, "RPM High",     ByteStatus.CONFIRMED, "×256"),            // was 24
     24 to ByteInfo(24, "RPM Low",      ByteStatus.CONFIRMED, "+byte23"),         // was 25
     32 to ByteInfo(32, "Ign. Advance", ByteStatus.SUSPECTED,  "x-64 °"),          // was 33
-    35 to ByteInfo(35, "Coolant",      ByteStatus.CONFIRMED, "-40 °C"),          // was 36
+    35 to ByteInfo(35, "Static 0x93",   ByteStatus.STATIC,    "107 °C"),          // was 36
     38 to ByteInfo(38, "Fuel Enrich",  ByteStatus.UNMAPPED,  "WOT flag"),        // was 39
     53 to ByteInfo(53, "Runtime",      ByteStatus.UNMAPPED,  "counter")          // was 54
 )
