@@ -55,7 +55,7 @@ The **Jiangnan TT** features a known factory wiring defect where the **CAN-L** l
 1. 在不进行手动重新接线的情况下，标准的 OBD-II CAN 总线诊断在物理上是**不可能实现**的。
 2. 悬空的 CAN-H 信号会产生电磁干扰，影响标准的备用 K-Line 诊断。
 3. 这就是为什么我们专门研发的 **K-Line / KWP2000 快速初始化** 方案是目前唯一能稳定连接到 LEC3A ECU 的方法。
-* 有关该缺陷的更多技术细节以及如何进行物理修复，请参阅我们深入的 [ECU 研究文档](Doc/jiangnan_tt_ecu_research.md)。
+* 有关该缺陷的更多技术细节以及如何进行物理修复，请参阅我们深入的 [ECU 研究文档](Doc/jiangnan_tt_ecu_research_zh.md)。
 * 汽车之家参考论坛讨论：[江南TT/奥拓 诊断与接口问题 - 汽车之家论坛](https://club.autohome.com.cn/bbs/thread/b5b5218adf071566/114912469-1.html?bbsid=2230#pvareaid=6830285)。
 
 ### 技术栈

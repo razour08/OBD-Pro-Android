@@ -54,6 +54,7 @@ local.properties
 # Excluded folders
 /Doc/*
 !/Doc/jiangnan_tt_ecu_research.md
+!/Doc/jiangnan_tt_ecu_research_zh.md
 /.agent/
 /.vscode/
 /.kotlin/
