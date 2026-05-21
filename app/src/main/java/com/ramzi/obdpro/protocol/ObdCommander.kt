@@ -346,6 +346,14 @@ class ObdCommander(private val bluetoothManager: ObdBluetoothManager) {
             return warning
         }
 
+        // ── DEMO MODE: No real Bluetooth connection ─────────────────
+        if (_isDemoMode.value) {
+            logTx(command)
+            val simResponse = "[DEMO] No real connection — command not sent"
+            logRx(simResponse)
+            return simResponse
+        }
+
         return sendCommand(command)
     }
 
