@@ -364,12 +364,23 @@ class ObdCommander(private val bluetoothManager: ObdBluetoothManager) {
     /**
      * Sends a command and reads the response via Bluetooth.
      * Handles TX/RX logging automatically.
+     *
+     * Wrapped in try-catch as a defensive safety layer — if the
+     * OutputStream is unexpectedly null (e.g., connection lost mid-session),
+     * the app logs the error instead of crashing.
      */
     private suspend fun sendCommand(command: String, timeoutMs: Long = 4000): String {
         logTx(command)
-        val response = bluetoothManager.sendAndRead(command, timeoutMs)
-        logRx(response.ifEmpty { "(empty)" })
-        return response
+        return try {
+            val response = bluetoothManager.sendAndRead(command, timeoutMs)
+            logRx(response.ifEmpty { "(empty)" })
+            response
+        } catch (e: java.io.IOException) {
+            val errorMsg = "⚠ Send failed: ${e.message}"
+            logRx(errorMsg)
+            Log.e(TAG, "sendCommand failed for '$command'", e)
+            errorMsg
+        }
     }
 
     /**
