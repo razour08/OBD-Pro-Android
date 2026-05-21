@@ -23,7 +23,6 @@
 | **Power** | 27.5 kW (~37 hp) |
 | **Cylinders** | 3 |
 | **G/W** | 1000 kg |
-| **VIN** | LJ811B5A2D0000616 |
 | **Engine No** | 121230509 |
 | **Passengers** | 4 |
 | **Manufacture Date** | 2013-01-03 |
